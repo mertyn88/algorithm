@@ -1,1 +1,11 @@
 *.class
+
+# intellij
+*.iml
+.idea/
+mvnw
+mvnw.cmd
+
+**/build/
+**/classes/
+**/out/
