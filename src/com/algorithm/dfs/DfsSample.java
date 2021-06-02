@@ -77,33 +77,51 @@ class DfsSample {
     public static void main(String args[]) {
         DfsSample g = new DfsSample();     // 노드 개수
 
-        g.addEdge("0", "1");
-        g.addEdge("0", "2");
-        g.addEdge("1", "2");
-        g.addEdge("2", "0");
-        g.addEdge("2", "3");
-        g.addEdge("3", "3");
+        //g.addEdge("0", "1");
+        //g.addEdge("0", "2");
+        //g.addEdge("1", "2");
+        //g.addEdge("2", "0");
+        //g.addEdge("2", "3");
+        //g.addEdge("3", "3");
+
+        g.addEdge("A", "F");
+        g.addEdge("A", "E");
+        g.addEdge("A", "D");
+        g.addEdge("A", "C");
+        g.addEdge("A", "B");
+
+        g.addEdge("B", "B");
+
+        g.addEdge("C", "B");
+
+        g.addEdge("D", "D");
+
+        g.addEdge("E", "E");
+
+        g.addEdge("F", "E");
+
 
         /*
          *
          * A
          * | \ \
-         * B D E
+         * F D C
          * |   |
-         * C   F
+         * E   B
          *
-         *  A = [B C], [D], [E, F]
-         *  B = [C]
-         *  C = x
+         *  A = [F E], [D], [C, B]
+         *  B = X
+         *  C = [B]
          *  D = X
-         *  E = [F]
+         *  E = X
+         *  F = [E]
          */
 
         System.out.println(
             "Following is Depth First Traversal "
                 + "(starting from vertex 2)");
 
-        g.DFS("2");
+        g.DFS("A");
     }
 }
 // This code is contributed by Aakash Hasija
