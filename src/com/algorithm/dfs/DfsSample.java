@@ -1,49 +1,109 @@
 package com.algorithm.dfs;
 
+
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
-public class DfsSample {
-    //private Map<String, LinkedList<String>> nodeMap = new HashMap<>();
-    public List<Node> nodeList = new LinkedList<>();
+class DfsSample {
+    private int V; // No. of vertices
 
-    /*
-        대상노드(Target Node) 대상별 인접노드(Adjacent Node) 리스트 추가
-     */
-    void add(String tNodeName, Node aNode){
-        //nodeMap.get(targetNode).add(adjacentNode);
-        nodeList.add(new Node(){{
-            targetNodeName = tNodeName;
-            adjacentNode = aNode;
-        }});
+    // Array  of lists for
+    // Adjacency List Representation
+    private Map<String, List<String>> adjacentList;
+    private List<String> visitedMap;
+
+    // Constructor
+    DfsSample() {
+        adjacentList = new LinkedHashMap<>();
+        visitedMap = new LinkedList<>();
+       // for (int i = 0; i < v; ++i)
+        //    adjacentList[i] = new LinkedList();
     }
 
-    void dfs(){
-        /* 방문 체크 리스트 */
-        dfsSearch(nodeList.get(0));
-    }
-
-    void dfsSearch(Node node){
-        //인접 노드 가져오기
-        // ListIterator는 양방향으로의 이동이 가능, 단 List 관련 컬렉션일경우에만 가능
-
-        if(!node.isVisit){
-            //방문 표시
-            node.isVisit = true;
-            dfsSearch(node.adjacentNode);
+    // Function to add an edge into the graph
+    void addEdge(String key, String w) {
+        if(adjacentList.containsKey(key)){
+            adjacentList.get(key).add(w);
+        }else{
+            adjacentList.put(key, new LinkedList<>(){{
+               add(w);
+            }});
         }
-        System.out.println(node.targetNodeName);
+
+
+        adjacentList.get(key).add(w); // Add w to key list.
+        //adjacentList[v].add(w);
     }
 
-    public static void main(String[] args){
-        DfsSample dfsSample = new DfsSample();
+    // A function used by DFS
+    void DFSUtil(String key) {
+        // Mark the current node as visited and print it
+        visitedMap.add(key);
+        //visited[v] = true;
+        System.out.print(key + " ");
 
-        dfsSample.nodeList.add()
+        // Recur for all the vertices adjacent to this
+        // vertex
+        Iterator<String> i = adjacentList.get(key).listIterator();
+        //System.out.println(i);
+        while (i.hasNext()) {
+            String nKey = i.next();
+          //  System.out.println(nKey);
+            if(!visitedMap.contains(nKey)){
+                DFSUtil(nKey);
+            }
+        }
+    }
+
+    // The function to do DFS traversal.
+    // It uses recursive
+    // DFSUtil()
+    void DFS(String key) {
+        // Mark all the vertices as
+        // not visited(set as
+        // false by default in java)
+
+
+        // Call the recursive helper
+        // function to print DFS
+        // traversal
+        DFSUtil(key);
+    }
+
+    // Driver Code
+    public static void main(String args[]) {
+        DfsSample g = new DfsSample();     // 노드 개수
+
+        g.addEdge("0", "1");
+        g.addEdge("0", "2");
+        g.addEdge("1", "2");
+        g.addEdge("2", "0");
+        g.addEdge("2", "3");
+        g.addEdge("3", "3");
+
+        /*
+         *
+         * A
+         * | \ \
+         * B D E
+         * |   |
+         * C   F
+         *
+         *  A = [B C], [D], [E, F]
+         *  B = [C]
+         *  C = x
+         *  D = X
+         *  E = [F]
+         */
+
+        System.out.println(
+            "Following is Depth First Traversal "
+                + "(starting from vertex 2)");
+
+        g.DFS("2");
     }
 }
-
-class Node{
-    public boolean isVisit = false;
-    public String targetNodeName;
-    public Node adjacentNode;
-}
+// This code is contributed by Aakash Hasija
