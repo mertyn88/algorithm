@@ -102,11 +102,11 @@ class DfsBfs<E> {
         dfsBfs.addEdge("F", "E");
         dfsBfs.dfs("A");
         // Run DFS
-        System.out.println(dfsBfs.getResult());
+        System.out.println(dfsBfs.getResult()); // [A, F, E, D, C, B]
         dfsBfs.init();
 
         // Run BFS
         dfsBfs.bfs("A");
-        System.out.println(dfsBfs.getResult());
+        System.out.println(dfsBfs.getResult()); // [A, F, D, C, E, B]
     }
 }
