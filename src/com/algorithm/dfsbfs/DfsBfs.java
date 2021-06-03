@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
+import java.util.Stack;
 
 class DfsBfs<E> {
 
@@ -15,6 +16,8 @@ class DfsBfs<E> {
     private List<E> visitedList = new LinkedList<>();
     //bfs queue
     private Queue<E> queue = new LinkedList<>();
+    //dfs stack
+    private Stack<E> stack = new Stack<>();
     //result List
     private List<E> result = new ArrayList<>();
 
@@ -29,8 +32,8 @@ class DfsBfs<E> {
         }
     }
 
-    // dfs function
-    void dfs(E key) {
+    // dfs function - recursion
+    void dfsRecursion(E key) {
         // 방문 추가
         visitedList.add(key);
         // 결과리스트 추가
@@ -39,10 +42,31 @@ class DfsBfs<E> {
         // recursion loop
         for (E nKey : adjacentMap.get(key)) {
             if (!visitedList.contains(nKey)) {
-                dfs(nKey);
+                dfsRecursion(nKey);
             }
         }
     }
+    // dfs function - stack
+    void dfsStack(E key){
+        stack.push(key);        // Stack 추가
+        visitedList.add(key);   // 방문 추가
+
+        // stack loop
+        while(!stack.empty()){
+            E stackKey = stack.pop();
+            // 결과 list 추가
+            result.add(stackKey);
+
+            // list loop
+            for(E loopKey : adjacentMap.get(stackKey)){
+                if(!visitedList.contains(loopKey)){
+                    visitedList.add(loopKey);
+                    stack.push(loopKey);
+                }
+            }
+        }
+    }
+
 
     // bfs function
     void bfs(E key){
@@ -56,10 +80,10 @@ class DfsBfs<E> {
             result.add(queueKey);
 
             // list loop
-            for (E iterKey : adjacentMap.get(queueKey)) {
-                if (!visitedList.contains(iterKey)) {
-                    visitedList.add(iterKey);
-                    queue.add(iterKey);
+            for (E loopKey : adjacentMap.get(queueKey)) {
+                if (!visitedList.contains(loopKey)) {
+                    visitedList.add(loopKey);
+                    queue.add(loopKey);
                 }
             }
         }
@@ -100,12 +124,18 @@ class DfsBfs<E> {
         dfsBfs.addEdge("D", "D");
         dfsBfs.addEdge("E", "E");
         dfsBfs.addEdge("F", "E");
-        dfsBfs.dfs("A");
-        // Run DFS
+        dfsBfs.dfsRecursion("A");
+
+        // Run DFS - Recursion
         System.out.println(dfsBfs.getResult()); // [A, F, E, D, C, B]
         dfsBfs.init();
 
-        // Run BFS
+        // Run DFS - Stack
+        dfsBfs.dfsStack("A");
+        System.out.println(dfsBfs.getResult()); // [A, C, B, D, F, E]
+        dfsBfs.init();
+
+        // Run BFS - Queue
         dfsBfs.bfs("A");
         System.out.println(dfsBfs.getResult()); // [A, F, D, C, E, B]
     }
