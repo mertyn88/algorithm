@@ -8,6 +8,13 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
 
+/*
+    최단경로 찾을때는
+        - BFS ( Breadth-First-Search)
+
+    전체 탐색 일때는
+        - DFS ( Depth - First Search)
+ */
 class DfsBfs<E> {
 
     //공통 인접 노드 정보를 담는 맵
@@ -49,7 +56,7 @@ class DfsBfs<E> {
     // dfs function - stack
     void dfsStack(E key){
         stack.push(key);        // Stack 추가
-        visitedList.add(key);   // 방문 추가
+        //visitedList.add(key);   // 방문 추가
 
         // stack loop
         while(!stack.empty()){
@@ -71,7 +78,7 @@ class DfsBfs<E> {
     // bfs function
     void bfs(E key){
         queue.add(key);         // 큐 추가
-        visitedList.add(key);   // 방문 추가
+   //     visitedList.add(key);   // 방문 추가
 
         // queue loop
         while(queue.size() != 0){
