@@ -40,19 +40,23 @@ class Solution {
 
     private Stack<Integer> stack = new Stack<>();
     public int solution(int[] numbers, int target) {
-        //스택넣고 방문 표시
+        // 최초값 삽입 (stack loop가 수행될수 있도록)
         stack.push(0);
+        // 깊이별 loop
         for (int number : numbers) {
+            // 임시 stack loop마다 초기화가 이루어져야 한다.
             Stack<Integer> tempStack = new Stack<>();
-            //tempStack.addAll(stack);
-
             while (!stack.empty()) {
+                // 현재까지 연산된 stack 값 pop
                 int value = stack.pop();
+                // +값, -값을 각각 stack push
                 tempStack.push(number + value);
                 tempStack.push((number * -1) + value);
             }
+            // Empty된 stack에 다시 loop할 수 있도록 임시 stack의 값 할당
             stack.addAll(tempStack);
         }
+        // 최종깊이의 연산값에 대해 target 숫자와 일치하는 개수를 반환
         return (int) stack.stream().filter(num -> num == target).count();
     }
 }
