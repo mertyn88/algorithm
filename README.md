@@ -1,5 +1,6 @@
 #### 네트워크 (2021. 06. 09) BFS/DFS
 https://programmers.co.kr/learn/courses/30/lessons/43162
+https://github.com/mertyn88/algorithm/blob/master/src/com/algorithm/programmers/network/Solution.java
 
 >컴퓨터 A와 컴퓨터 B가 직접적으로 연결되어있고, 컴퓨터 B와 컴퓨터 C가 직접적으로 연결되어 있을 때 컴퓨터 A와 컴퓨터 C도 간접적으로 연결되어 정보를 교환할 수 있습니다.  
 >따라서 컴퓨터 A, B, C는 모두 같은 네트워크 상에 있다고 할 수 있습니다.
@@ -16,6 +17,7 @@ https://programmers.co.kr/learn/courses/30/lessons/43162
 ---
 #### 타겟넘버 (2021. 06. 07) BFS/DFS
 https://programmers.co.kr/learn/courses/30/lessons/43165
+https://github.com/mertyn88/algorithm/blob/master/src/com/algorithm/programmers/targetnumber/Solution.java
 
 >-1+1+1+1+1 = 3  
 >+1-1+1+1+1 = 3  
@@ -41,6 +43,7 @@ https://programmers.co.kr/learn/courses/30/lessons/43165
 ---
 #### 프린터 (2021. 05. 30)  Stack/Queue
 https://programmers.co.kr/learn/courses/30/lessons/42587
+https://github.com/mertyn88/algorithm/blob/master/src/com/algorithm/programmers/printer/Solution.java
 
 > 1. 인쇄 대기목록의 가장 앞에 있는 문서(J)를 대기목록에서 꺼냅니다.
 > 2. 나머지 인쇄 대기목록에서 J보다 중요도가 높은 문서가 한 개라도 존재하면 J를 대기목록의 가장 마지막에 넣습니다.
