@@ -70,7 +70,7 @@ public class Solution {
         }).filter(Objects::nonNull).collect(Collectors.toList());
 
         if(containList.isEmpty()){
-            visitList.remove(begin); // 전으로 돌아가고
+            visitList.remove(begin); // 방문자 리스트 삭제 ( 전의 상황으로 돌아가야 한다. )
             return count-1;
         }else if(containList.contains(target)){
             check = true;
