@@ -1,4 +1,4 @@
-package com.algorithm.queue.configuration;
+package com.algorithm.example.queue.configuration;
 
 /**
  * 링 버퍼

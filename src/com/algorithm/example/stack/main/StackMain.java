@@ -1,6 +1,6 @@
-package com.algorithm.stack.main;
+package com.algorithm.example.stack.main;
 
-import com.algorithm.stack.configuration.IntStack;
+import com.algorithm.example.stack.configuration.IntStack;
 
 import java.util.Scanner;
 
