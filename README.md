@@ -1,7 +1,7 @@
-참여인원 4
-잡부 : https://github.com/lordchiwoo/algo_programmers  
-산당 : https://github.com/JhonverKing/AlgoStudy  
-가니 : https://github.com/kwan1989/algorithm_Programmers  
+참여인원 4  
+> 잡부 : https://github.com/lordchiwoo/algo_programmers  
+> 산당 : https://github.com/JhonverKing/AlgoStudy  
+> 가니 : https://github.com/kwan1989/algorithm_Programmers  
 
 ---
 #### 단어변환 (2021. 06. 20) BFS/DFS
