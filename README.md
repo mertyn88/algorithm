@@ -1,3 +1,9 @@
+참여인원 4
+잡부 : https://github.com/lordchiwoo/algo_programmers
+산당 : https://github.com/JhonverKing/AlgoStudy
+가니 : https://github.com/kwan1989/algorithm_Programmers
+
+---
 #### 단어변환 (2021. 06. 20) BFS/DFS
 [Programmers](https://programmers.co.kr/learn/courses/30/lessons/43163)  
 [Git Solution](https://github.com/mertyn88/algorithm/blob/master/src/com/algorithm/programmers/convertword/Solution.java)  
@@ -36,6 +42,7 @@ hit -> ["hht"] 인경우
 * hh[t] 인경우 hit.contains true
 
 코드를 변경하였고 이후 실제 테스트3의 케이스도 통과하였다.
+
 ---
 #### 네트워크 (2021. 06. 09) BFS/DFS
 [Programmers](https://programmers.co.kr/learn/courses/30/lessons/43162)  
