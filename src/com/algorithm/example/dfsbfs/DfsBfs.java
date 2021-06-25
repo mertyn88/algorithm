@@ -1,4 +1,4 @@
-package com.algorithm.dfsbfs;
+package com.algorithm.example.dfsbfs;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;

@@ -1,4 +1,4 @@
-package com.algorithm.stack.configuration;
+package com.algorithm.example.stack.configuration;
 
 public class IntStack {
     private int max;    //스택 용량

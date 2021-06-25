@@ -1,6 +1,6 @@
-package com.algorithm.queue.main;
+package com.algorithm.example.queue.main;
 
-import com.algorithm.queue.configuration.IntQueue;
+import com.algorithm.example.queue.configuration.IntQueue;
 
 import java.util.Scanner;
 
