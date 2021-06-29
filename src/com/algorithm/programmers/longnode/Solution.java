@@ -13,8 +13,11 @@ public class Solution {
 
     //공통 인접 노드 정보를 담는 맵
     private Map<Integer, Set<Integer>> adjacentMap = new HashMap<>();
-    //공통 방문 리스트
+    //공통 방문 리스트 - 시간 이슈 발생
+    @Deprecated
     private List<Integer> visitedList = new LinkedList<>();
+    // 공통 방문 리스트 - 시간 이슈 해결
+    private boolean[] visitArray = null;
     //bfs queue
     private Queue<Integer> queue = new LinkedList<>();
 
@@ -32,11 +35,12 @@ public class Solution {
         }
     }
     // 시간초과 해결한 코드
-    public void setData(int[][] edge){
+    public void setData(int n, int[][] edge){
         for (int[] arr : edge) {
             addEdge(arr[0], arr[1]);
             addEdge(arr[1], arr[0]);
         }
+        visitArray = new boolean[n];
     }
 
     void addEdge(int key, int adjacent) {
@@ -61,8 +65,16 @@ public class Solution {
 
             // adjacent list loop
             for (int loopKey : adjacentMap.get(queueKey)) {
+               /*
+                시간 이슈 코드
                 if (!visitedList.contains(loopKey)) {
                     visitedList.add(loopKey);
+                    tempQueue.add(loopKey);
+                }
+                */
+                // 시간 이슈 해결 코드
+                if (!visitArray[loopKey - 1]) {
+                    visitArray[loopKey - 1] = true;
                     tempQueue.add(loopKey);
                 }
             }
@@ -85,9 +97,10 @@ public class Solution {
         ////6   [[3, 6], [4, 3], [3, 2], [1, 3], [1, 2], [2, 4], [5, 2]]
         // 시간초과 이슈
         //tempSetData(n, edge);
-        setData(edge);
+        setData(n, edge);
 
-        visitedList.add(1);
+        //visitedList.add(1);
+        visitArray[0] = true;
         queue.add(1);         // 큐 추가
         return bfs();
     }
