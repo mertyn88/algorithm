@@ -71,9 +71,9 @@ class Solution {
                 }
             }
         }
-        scoreMap.put(node, tempSet);
-        tempSet = new HashSet<>();
-        isVisit = new boolean[nodeCount];
+        scoreMap.put(node, tempSet);            // 승리 또는 패배 데이터 셋 신규 데이터 추가
+        tempSet = new HashSet<>();              // 초기화 Set - 노드별
+        isVisit = new boolean[nodeCount];       // 초기화 방문 - 노드별
     }
 
     public int solution(int n, int[][] results) {
