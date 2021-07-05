@@ -88,8 +88,6 @@ class Solution {
             winnerMap.merge(arr[0], new HashSet<>(){{add(arr[1]);}}, (e, i) -> new HashSet<>(){{addAll(e);addAll(i);}});
             loserMap.merge(arr[1], new HashSet<>(){{add(arr[0]);}}, (e, i) -> new HashSet<>(){{addAll(e);addAll(i);}});
         }
-        //System.out.println(winnerMap);
-        //System.out.println(loserMap);
 
         // [2차] 승리, 패배 가상 데이터 셋 구축 ( 각자 for 문에서 리팩토링 )
         for(Map scoreMap : new Map[]{winnerMap, loserMap}){
@@ -98,14 +96,9 @@ class Solution {
            }
         }
 
-        //System.out.println(winnerMap);
-        //System.out.println(loserMap);
-
         // [3차] 승리데이터 와 패배 데이터를 머지
         IntStream.rangeClosed(1, nodeCount).forEach(node ->
                 mergeMap.put(node, new HashSet<>(){{addAll(winnerMap.get(node));addAll(loserMap.get(node));}}));
-
-        //System.out.println(mergeMap);
 
         // 승리데이터셋과 패배데이터셋을 합쳤을때, 모든 노드들이 표현되는 노드 개수 반환
         return (int)mergeMap.values().stream().filter(value -> value.size() == n).count();
