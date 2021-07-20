@@ -522,6 +522,7 @@ hit -> ["hht"] 인경우
 <details>
 <summary>내용 보기</summary>
 <div markdown="1">
+
 |priorities |location|return
 |-----------|--------|------|  
 |[2, 1, 3, 2]|2|1|
