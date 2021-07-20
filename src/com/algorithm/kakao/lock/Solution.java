@@ -6,13 +6,6 @@ import java.util.List;
 
 public class Solution {
 
-    /*
-        공식적용해보자
-        N * (N - 0) - (N - 1)|N * (N - 1) - (N - 1)|N * (N - 2) - (N - 1)
-        N * (N - 0) - (N - 2)|N * (N - 1) - (N - 2)|N * (N - 2) - (N - 2)
-        N * (N - 0) - (N - 3)|N * (N - 1) - (N - 3)|N * (N - 2) - (N - 3)
-     */
-
     private List<Integer> virtualRealLockList = null;
     private int[][] virtualArr = null;
     private int lockLength = 0;
@@ -98,6 +91,9 @@ public class Solution {
         int[] tempArr = new int[size * size];
         for(int idx = 0; idx < flatArr.length; idx++){
             // 로테이션 위치값 - 공식에 의한 인덱스값을 찾는다.
+            //N * (N - 0) - (N - 1)|N * (N - 1) - (N - 1)|N * (N - 2) - (N - 1)
+            //N * (N - 0) - (N - 2)|N * (N - 1) - (N - 2)|N * (N - 2) - (N - 2)
+            //N * (N - 0) - (N - 3)|N * (N - 1) - (N - 3)|N * (N - 2) - (N - 3)
             int locationValue = size * (size - row) - (size - column);
             // 인덱스값을 1차원으로 펼친 flatArr에서 값을 임시 1차원 배열에 할당한다.
             tempArr[idx] = flatArr[locationValue];
