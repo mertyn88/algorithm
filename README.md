@@ -21,7 +21,7 @@
 
 <details>
 <summary>내용 보기</summary>
-<div markdown="6">
+<div markdown="7">
 
 |n|times|return|
 |---|---|---|
@@ -129,7 +129,7 @@ sum == key의 조건이 사라지고 부등호의 방향이 바뀌어서 처리�
 
 <details>
 <summary>내용 보기</summary>
-<div markdown="5">
+<div markdown="6">
 
 |n|vertex|return|
 |---|---|---|
@@ -309,7 +309,7 @@ return (int)mergeMap.values().stream().filter(value -> value.size() == n).count(
 
 <details>
 <summary>내용 보기</summary>
-<div markdown="4">
+<div markdown="5">
 
 ![](https://images.velog.io/images/mertyn88/post/78916a7e-c778-4cca-bf8b-5e71cc09aea2/image.png)
 
@@ -459,7 +459,7 @@ if (!visitArray[loopKey - 1]) {
 
 <details>
 <summary>내용 보기</summary>
-<div markdown="3">
+<div markdown="4">
 
 |begin|target|words|return|
 |-----|------|-----|:------:|
@@ -505,7 +505,7 @@ hit -> ["hht"] 인경우
 
 <details>
 <summary>내용 보기</summary>
-<div markdown="2">
+<div markdown="3">
 
 |n|computers|return|
 |---|------|------|
@@ -523,6 +523,10 @@ hit -> ["hht"] 인경우
 ## 타겟넘버 (2021. 06. 07) BFS/DFS
 [Programmers](https://programmers.co.kr/learn/courses/30/lessons/43165)  
 [Git Solution](https://github.com/mertyn88/algorithm/blob/master/src/com/algorithm/programmers/targetnumber/Solution.java)  
+
+<details>
+<summary>내용 보기</summary>
+<div markdown="2">
 
 >-1+1+1+1+1 = 3  
 >+1-1+1+1+1 = 3  
@@ -544,6 +548,9 @@ hit -> ["hht"] 인경우
 연습한 DFS를 사용하고 싶었지만, 또다시 테스트케이스에서 지속적인 예외가 발생하였다.  
 또다시 편법을 사용해야 했으며, 모든 케이스에 대해 전체 계산이 이루어진 후, 필요 번호를 stream api로  
 추출하는 방식을 취했다. 그러다보니 테스트 케이스에서 엄청난 시간과 메모리양이 소요되었다.
+
+</div>
+</details>
 
 ---
 ## 프린터 (2021. 05. 30)  Stack/Queue
@@ -580,5 +587,6 @@ hit -> ["hht"] 인경우
 재귀함수를 이용해서 해결. 단, 아쉬운점은 동적으로 위치값을 변하게 하고 싶었으나  
 테스트 케이스에서의 지속적인 에러로 String값을 마킹하는 편법을 사용했다.  
 그러므로써 int형의 계산을 String -> Integer변환 및 replace를 해줘야하는 상황이 발생하였다.
+
 </div>
 </details>
