@@ -19,6 +19,9 @@
 * 각 심사관이 한 명을 심사하는데 걸리는 시간은 1분 이상 1,000,000,000분 이하입니다.
 * 심사관은 1명 이상 100,000명 이하입니다.
 
+<details>
+<summary>내용 보기</summary>
+<div markdown="6">
 
 |n|times|return|
 |---|---|---|
@@ -104,7 +107,11 @@ sum == key의 조건이 사라지고 부등호의 방향이 바뀌어서 처리�
 ### 후기
 해당 문제는 좀... 사람수를 구하는 공식을 모르면 절대로 풀수 없는 문제 같았다. 시간도 많이 걸렸거니와 저 문제의 공식을 혼자서 스스로 도출한 것이 아니기 때문에 찝찝함이 많은 문제였다. 실제 정답코드는 저리 짧은데..
 
+</div>
+</details>
+
 ---
+
 ## 순위 (2021. 07. 04) Graph (BFS)
 ### 문제 및 풀이 주소
 [Programmers](https://programmers.co.kr/learn/courses/30/lessons/49191?language=java)  
@@ -119,6 +126,10 @@ sum == key의 조건이 사라지고 부등호의 방향이 바뀌어서 처리�
 * 경기 결과는 1개 이상 4,500개 이하입니다.
 * results 배열 각 행 [A, B]는 A 선수가 B 선수를 이겼다는 의미입니다.
 * 모든 경기 결과에는 모순이 없습니다.
+
+<details>
+<summary>내용 보기</summary>
+<div markdown="5">
 
 |n|vertex|return|
 |---|---|---|
@@ -276,7 +287,11 @@ return (int)mergeMap.values().stream().filter(value -> value.size() == n).count(
 시간의 제한을 두지 않고 오랜시간 생각하고 테스트 하였기에 해결했지, 실제 시간제한 있는 코딩테스트를 보게되면
 한문제나 맞출까 싶다... 아직 멀었다.
 
+</div>
+</details>
+
 ---
+
 ## 가장 먼 노드 (2021. 06. 28) Graph (BFS)
 ### 문제 및 풀이 주소
 [Programmers](https://programmers.co.kr/learn/courses/30/lessons/49189)  
@@ -291,6 +306,10 @@ return (int)mergeMap.values().stream().filter(value -> value.size() == n).count(
 > * 노드의 개수 n은 2 이상 20,000 이하입니다.
 > * 간선은 양방향이며 총 1개 이상 50,000개 이하의 간선이 있습니다.
 > * vertex 배열 각 행 [a, b]는 a번 노드와 b번 노드 사이에 간선이 있다는 의미입니다.
+
+<details>
+<summary>내용 보기</summary>
+<div markdown="4">
 
 ![](https://images.velog.io/images/mertyn88/post/78916a7e-c778-4cca-bf8b-5e71cc09aea2/image.png)
 
@@ -426,6 +445,8 @@ if (!visitArray[loopKey - 1]) {
 이번 문제를 해결하면서 굉장히 많은 삽질과 ( 매번하지만,, ) 시간이 소요되었다. 
 이럴때마다 정말 현타가 온다 아오...
 
+</div>
+</details>
 
 ---
 ## 단어변환 (2021. 06. 20) BFS/DFS
@@ -435,6 +456,10 @@ if (!visitArray[loopKey - 1]) {
 >두 개의 단어 begin, target과 단어의 집합 words가 있습니다. 아래와 같은 규칙을 이용하여 begin에서 target으로 변환하는 가장 짧은 변환 과정을 찾으려고 합니다.
 > 1. 한 번에 한 개의 알파벳만 바꿀 수 있습니다.
 > 2. words에 있는 단어로만 변환할 수 있습니다.
+
+<details>
+<summary>내용 보기</summary>
+<div markdown="3">
 
 |begin|target|words|return|
 |-----|------|-----|:------:|
@@ -467,6 +492,9 @@ hit -> ["hht"] 인경우
 
 코드를 변경하였고 이후 실제 테스트3의 케이스도 통과하였다.
 
+</div>
+</details>
+
 ---
 ## 네트워크 (2021. 06. 09) BFS/DFS
 [Programmers](https://programmers.co.kr/learn/courses/30/lessons/43162)  
@@ -474,6 +502,10 @@ hit -> ["hht"] 인경우
 
 >컴퓨터 A와 컴퓨터 B가 직접적으로 연결되어있고, 컴퓨터 B와 컴퓨터 C가 직접적으로 연결되어 있을 때 컴퓨터 A와 컴퓨터 C도 간접적으로 연결되어 정보를 교환할 수 있습니다.  
 >따라서 컴퓨터 A, B, C는 모두 같은 네트워크 상에 있다고 할 수 있습니다.
+
+<details>
+<summary>내용 보기</summary>
+<div markdown="2">
 
 |n|computers|return|
 |---|------|------|
@@ -483,6 +515,9 @@ hit -> ["hht"] 인경우
 해당 문제에 대해서는...  나의 실력으로 해결한 문제가 아니므로 결과를 기술하지 않는다.  
 테스트케이스에 대해서 해결을 하지 못하였고, 시간이 너무 지나서 결국 정답을 살짝 보았지만  
 결국 코드가 해답과 비슷해져 버렸다.
+
+</div>
+</details>
 
 ---
 ## 타겟넘버 (2021. 06. 07) BFS/DFS
