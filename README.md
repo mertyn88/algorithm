@@ -20,7 +20,7 @@
 * 심사관은 1명 이상 100,000명 이하입니다.
 
 <details>
-<summary> _**풀이 보기**_ </summary>
+<summary>풀이 보기</summary>
 <div markdown="7">
 
 |n|times|return|
