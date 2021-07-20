@@ -20,7 +20,7 @@
 * 심사관은 1명 이상 100,000명 이하입니다.
 
 <details>
-<summary>내용 보기</summary>
+<summary>풀이 보기</summary>
 <div markdown="7">
 
 |n|times|return|
@@ -128,7 +128,7 @@ sum == key의 조건이 사라지고 부등호의 방향이 바뀌어서 처리�
 * 모든 경기 결과에는 모순이 없습니다.
 
 <details>
-<summary>내용 보기</summary>
+<summary>풀이 보기</summary>
 <div markdown="6">
 
 |n|vertex|return|
@@ -308,7 +308,7 @@ return (int)mergeMap.values().stream().filter(value -> value.size() == n).count(
 > * vertex 배열 각 행 [a, b]는 a번 노드와 b번 노드 사이에 간선이 있다는 의미입니다.
 
 <details>
-<summary>내용 보기</summary>
+<summary>풀이 보기</summary>
 <div markdown="5">
 
 ![](https://images.velog.io/images/mertyn88/post/78916a7e-c778-4cca-bf8b-5e71cc09aea2/image.png)
@@ -458,7 +458,7 @@ if (!visitArray[loopKey - 1]) {
 > 2. words에 있는 단어로만 변환할 수 있습니다.
 
 <details>
-<summary>내용 보기</summary>
+<summary>풀이 보기</summary>
 <div markdown="4">
 
 |begin|target|words|return|
@@ -504,7 +504,7 @@ hit -> ["hht"] 인경우
 >따라서 컴퓨터 A, B, C는 모두 같은 네트워크 상에 있다고 할 수 있습니다.
 
 <details>
-<summary>내용 보기</summary>
+<summary>풀이 보기</summary>
 <div markdown="3">
 
 |n|computers|return|
@@ -525,7 +525,7 @@ hit -> ["hht"] 인경우
 [Git Solution](https://github.com/mertyn88/algorithm/blob/master/src/com/algorithm/programmers/targetnumber/Solution.java)  
 
 <details>
-<summary>내용 보기</summary>
+<summary>풀이 보기</summary>
 <div markdown="2">
 
 >-1+1+1+1+1 = 3  
@@ -562,7 +562,7 @@ hit -> ["hht"] 인경우
 > 3. 그렇지 않으면 J를 인쇄합니다.
 
 <details>
-<summary>내용 보기</summary>
+<summary>풀이 보기</summary>
 <div markdown="1">
 
 |priorities |location|return
