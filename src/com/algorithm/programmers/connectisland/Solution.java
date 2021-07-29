@@ -13,47 +13,46 @@ public class Solution {
             else
                 return Integer.compare(o1[2], o2[2]);
         });
-/*        for (int[] temp : costs) {
+        for (int[] temp : costs) {
             for (int b : temp) {
                 System.out.print(b + " ");
             }
             System.out.println();
         }
-        System.out.println();*/
+        System.out.println();
 
-        // 첫번째 시작값은 끝나는지점이 없으니가 종료시점만 넣는다
+        // 방문 벡터 배열
+        int[] visitArr = new int[n];
+        Arrays.fill(visitArr, -1);
+        // 자식노드 부모로 변경?
+
+
+
         int answer = 0;
-        boolean[] startVisit = new boolean[n];
-        boolean[] endVisit = new boolean[n];
         for (int[] cost : costs) {
-            // 시작에 target 앞뒤가 들어오면 안됨
-            // 종료에 target 앞뒤가 들어오면 안됨
-            // 시작 첫번째, 종료 두번째에 target이 들어오면 안됨
-            // 시작 두번째, 종료 첫번째에 target이 들어오면 안됨
-
-            //최초 실행하는것만 시작부랑 연결되는것이 없으니 그것만 넣는다?
-
-            if (startVisit[cost[0]] && endVisit[cost[0]]) {
-                //들어오지마
-            } else if (startVisit[cost[1]] && endVisit[cost[1]]) {
-                //들어오지마
-            }else if(endVisit[cost[0]] && endVisit[cost[1]]){
-                //한쪽면에 두값이 있는 경우
-                //들어오지마
-            }else if(startVisit[cost[0]] && startVisit[cost[1]]){
-            //들어오지마
-            }else{
-                // 들어와
-                startVisit[cost[0]] = true;
-                endVisit[cost[1]] = true;
-                //System.out.println(cost[0] + " " + cost[1] + " 계산할값 > " + cost[2]);
+            // 최상위 부모를 찾는다.
+            // cost의 0번째 값이 visitArr에서 -1값이 아니면 그값을 탐색한다.
+            // -1 값이발견되면 그값은 아직 할당되지 않았으므로 작성가
+            int root = findParent(cost[0], visitArr);
+            visitArr[cost[1]] = root;
+            //root값이 기존값과 동일한데 이미 자식노드에 값이 있는경우?
+            if(cost[0] == root && visitArr[cost[1]] != -1){
                 answer += cost[2];
             }
         }
+
+        System.out.println(">> " + answer);
+
+
         //System.out.println("------");
-
-        System.out.println(answer);
-
         return answer;
     }
+
+   private int findParent(int child, int[] visitArr) {
+       if (visitArr[child] == -1) {
+           return child; // 기존 부모값 사용
+       } else {
+           return findParent(visitArr[child], visitArr);
+       }
+   }
 }
