@@ -44,7 +44,8 @@ public class Solution {
         }
         return answer;
     }
-
+    
+    // 리뷰 반영 추가 수정 커밋22
    private int findRoot(int child, int[] visitArr) {
        if(child == visitArr[child]){
            // 내 부모 값이 설정되어 있고 내 값과 같다면 Root를 찾아온 것임.
