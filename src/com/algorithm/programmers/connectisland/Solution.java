@@ -47,11 +47,13 @@ public class Solution {
 
    private int findRoot(int child, int[] visitArr) {
        if(child == visitArr[child]){
+           // 내 부모 값이 설정되어 있고 내 값과 같다면 Root를 찾아온 것임.
            return child;
        }else if (visitArr[child] == -1) {
            // 부모값이 설정 안되어 있다면 아직 연결된 적 없는 Cost 값이므로 자신이 가지고 있던 기존 부모값을 사용한다
            return child;
        } else {
+           // 내 부모 값이 설정되어 있지 않거나 내 값과 다르다면 Root를 찾아 떠난다.
            return findRoot(visitArr[child], visitArr);
        }
    }
