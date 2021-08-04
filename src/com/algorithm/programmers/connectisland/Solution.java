@@ -54,6 +54,8 @@ public class Solution {
            return child;
        } else {
            // 내 부모 값이 설정되어 있지 않거나 내 값과 다르다면 Root를 찾아 떠난다.
+           // 리뷰 반영 추가 수정 커밋 System.out.println("요래오래");
+
            return findRoot(visitArr[child], visitArr);
        }
    }
