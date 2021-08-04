@@ -49,7 +49,8 @@ public class Solution {
        if(child == visitArr[child]){
            return child;
        }else if (visitArr[child] == -1) {
-           return child; // 기존 부모값 사용
+           // 부모값이 설정 안되어 있다면 아직 연결된 적 없는 Cost 값이므로 자신이 가지고 있던 기존 부모값을 사용한다
+           return child;
        } else {
            return findRoot(visitArr[child], visitArr);
        }
