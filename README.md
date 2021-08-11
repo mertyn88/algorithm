@@ -121,24 +121,24 @@ OOOOOOO
 * 좌우의 관계에서는 Column의 값만 변경되는것이므로 Value 값을 ±1 한다.
 
 ```java
- // up validation & set
-                    if(key != 0){
-                        convertGrid.set(key - 1, replaceValue(convertGrid.get(key - 1), val));
-                    }
-                    // down validation & set
-                    if(key != row - 1){
-                        convertGrid.set(key + 1, replaceValue(convertGrid.get(key + 1), val));
-                    }
-                    // left validation & set
-                    if(val != 0){
-                        convertGrid.set(key, replaceValue(convertGrid.get(key), val - 1));
-                    }
-                    // right validation & set
-                    if(val != column - 1){
-                        convertGrid.set(key, replaceValue(convertGrid.get(key), val + 1));
-                    }
-                    // center set
-                    convertGrid.set(key, replaceValue(convertGrid.get(key), val));
+    // up validation & set
+    if(key != 0){
+        convertGrid.set(key - 1, replaceValue(convertGrid.get(key - 1), val));
+    }
+    // down validation & set
+    if(key != row - 1){
+        convertGrid.set(key + 1, replaceValue(convertGrid.get(key + 1), val));
+    }
+    // left validation & set
+    if(val != 0){
+        convertGrid.set(key, replaceValue(convertGrid.get(key), val - 1));
+    }
+    // right validation & set
+    if(val != column - 1){
+        convertGrid.set(key, replaceValue(convertGrid.get(key), val + 1));
+    }
+    // center set
+    convertGrid.set(key, replaceValue(convertGrid.get(key), val));
 ```
 
 
