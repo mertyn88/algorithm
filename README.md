@@ -4,6 +4,155 @@
 > 가니 : https://github.com/kwan1989/algorithm_Programmers  
 
 ---
+## The Bomberman Game (2021. 08. 11)
+### 문제 및 풀이 주소
+[HackerRank](https://www.hackerrank.com/challenges/bomber-man/problem)  
+[Git Solution](https://github.com/mertyn88/algorithm/blob/master/src/com/algorithm/hackerrank/bomberman/Solution.java)
+
+### 문제 설명 - 영문
+>Bomberman lives in a rectangular grid. Each cell in the grid either contains a bomb or nothing at all.
+Each bomb can be planted in any cell of the grid but once planted, it will detonate after exactly 3 seconds. Once a bomb detonates, it's destroyed — along with anything in its four neighboring cells. This means that if a bomb detonates in cell , any valid cells (i±1,j)  and (i,j±1) are cleared. If there is a bomb in a neighboring cell, the neighboring bomb is destroyed without detonating, so there's no chain reaction.
+Bomberman is immune to bombs, so he can move freely throughout the grid. Here's what he does:
+Initially, Bomberman arbitrarily plants bombs in some of the cells, the initial state.
+After one second, Bomberman does nothing.
+After one more second, Bomberman plants bombs in all cells without bombs, thus filling the whole grid with bombs. No bombs detonate at this point.
+After one more second, any bombs planted exactly three seconds ago will detonate. Here, Bomberman stands back and observes.
+Bomberman then repeats steps 3 and 4 indefinitely.
+Note that during every second Bomberman plants bombs, the bombs are planted simultaneously (i.e., at the exact same moment), and any bombs planted at the same time will detonate at the same time.
+Given the initial configuration of the grid with the locations of Bomberman's first batch of planted bombs, determine the state of the grid after  seconds.
+For example, if the initial grid looks like:
+
+### 문제 설명 - 번역
+>Bomberman 은 직사각형 격자에 살고 있습니다. 그리드의 각 셀에는 폭탄이 있거나 전혀 포함되어 있지 않습니다.
+각 폭탄은 그리드의 모든 셀에 설치할 수 있지만 일단 설치하면 정확히 3초 후에 폭발 합니다. 폭탄이 터지면 4개의 인접한 셀에 있는 모든 것과 함께 파괴됩니다. 즉, 폭탄이 세포에서 폭발하면, 모든 유효한 셀  (i±1,j) 그리고 (i,j±1) 지워집니다. 이웃 셀에 폭탄이 있으면 이웃 폭탄은 폭발 하지 않고 파괴 되므로 연쇄 반응이 없습니다.
+Bomberman은 폭탄에 면역이므로 그리드 전체를 자유롭게 이동할 수 있습니다. 그가 하는 일은 다음과 같습니다.
+초기에 Bomberman은 초기 상태인 일부 세포에 임의로 폭탄을 설치합니다.
+* 1초 후 Bomberman은 아무 것도 하지 않습니다.
+* 1초 후에 Bomberman은 폭탄 없이 모든 셀에 폭탄을 설치하여 전체 그리드를 폭탄으로 채웁니다. 이 시점에서 폭탄이 터지지 않습니다.
+* 1초가 더 지나면 정확히 3초 전에 설치한 폭탄이 폭발합니다. 여기에서 Bomberman은 뒤로 물러서서 관찰합니다.
+* 그런 다음 Bomberman은 3단계와 4단계를 무기한 반복합니다.  
+
+>매초 Bomberman이 폭탄을 설치하는 동안 폭탄은 동시에(즉, 정확히 같은 순간에 ) 설치되며, 동시에 설치된 폭탄은 동시에 폭발합니다.
+Bomberman의 첫 번째 배치 폭탄 위치와 함께 그리드의 초기 구성이 주어지면  초.
+
+제한사항
+![](https://images.velog.io/images/mertyn88/post/abbb1518-916f-400a-93ab-c629a0abd88f/image.png)
+
+<details>
+<summary>풀이 보기</summary>
+<div markdown="11">
+
+### 문제 해결
+영어라서 문제를 이해하는데 시간이 가장 오래걸린것 같다. 문제의 케이스를 나열해보니 시간에 따른 폭탄의 변화인데 모양이 변하는것이 규칙적으로 변하기 때문에 굳이 모든 시간을 다 계산할 필요가 없다고 생각하였다. 매번 변하는 모양을 어떻게 할당해서 처리할까 하다가 `List 컬렉션에서 set메소드`(업데이트)가 있어서 유용하게 사용해보았다. (실무에서도 안써본걸 이렇게 적용해본다)
+
+#### 이슈케이스
+
+계산을 3X3의 형태로 해보았을 때, 결국 설명만 어렵지 초기버전과 폭탄이 터진 버전, 전체가 폭탄으로 채워진 버전 총 3가지만 있으면 될것으로 보였다. 2의 배수 시간에서는 항상 채워진 폭탄이고 원복버전인지 폭탄이 터진버진인지는 다음과 같이 생각하였다.
+```bash
+1   5   9    13    17 # 최초 폭탄버전
+  3   7   11    15    # 1차폭발이후 폭탄버전
+```
+보아하니 4의 나머지값이 1인 경우와 3인경우만 판별하면 되겠다 싶었다. 그런데 테스트케이스에서 실패가 떨어졌는데 초기버전모양이 아니였다.(테스트를 3x3으로 해서..)
+잘못된 테스트 케이스는 다음과 같다
+```bash
+# 초기 버전
+.......
+...O.O.
+....O..
+..O....
+OO...OO
+OO.O...
+# 1차 폭발 버전
+OOO.O.O
+OO.....
+OO....O
+.......
+.......
+.......
+# 2차 폭발 버전
+.......
+...O.O.
+...OO..
+..OOOO.
+OOOOOOO
+OOOOOOO
+```
+보이는가,,, 초기버전과 2차 폭발 버전은 너무나도 다르게 나왔다. 이문제를 모르고 나는 내가 문제를 잘못 이해한줄알고 시간을 또다시 소비하게 되었다.
+
+#### 문제 해결
+
+폭탄의 위치값을 찾는 메소드
+
+```java
+    private static List<Integer> getIndex(String str) {
+        List<Integer> result = new ArrayList<>();
+        if(str.contains("O")){
+            int i = str.indexOf("O");
+            result.add(i);
+            while(i >= 0) {
+                i = str.indexOf("O", i+1);
+                if(i > 0){
+                    result.add(i);
+                }
+            }
+        }
+        return result;
+    }
+```
+
+모든 영역을 폭탄으로 채우는 메소드
+
+```java
+    public static List<String> fillBomber(List<String> grid){
+        return grid.stream().map(a -> a.replace(".", "O")).collect(Collectors.toList());
+    }
+```
+폭탄이 터졌을때의 대상의 값을 변환시키는 메소드
+```java
+    public static String replaceValue(String str, int idx) {
+        String[] tempArr = str.split("");
+        tempArr[idx] = ".";
+        return String.join("",tempArr);
+    }
+```
+폭탄이 터졌을때의 본인을 포함한 상하좌우 Validation 및 값 설정 메소드
+* 범위를 벗어날 경우에는 처리하지 않는다.
+* 상하의 관계에서는 Row의 값만 변경되는것이므로 Key 값을 ±1 한다.
+* 좌우의 관계에서는 Column의 값만 변경되는것이므로 Value 값을 ±1 한다.
+
+```java
+ // up validation & set
+                    if(key != 0){
+                        convertGrid.set(key - 1, replaceValue(convertGrid.get(key - 1), val));
+                    }
+                    // down validation & set
+                    if(key != row - 1){
+                        convertGrid.set(key + 1, replaceValue(convertGrid.get(key + 1), val));
+                    }
+                    // left validation & set
+                    if(val != 0){
+                        convertGrid.set(key, replaceValue(convertGrid.get(key), val - 1));
+                    }
+                    // right validation & set
+                    if(val != column - 1){
+                        convertGrid.set(key, replaceValue(convertGrid.get(key), val + 1));
+                    }
+                    // center set
+                    convertGrid.set(key, replaceValue(convertGrid.get(key), val));
+```
+
+
+### 테스트 결과
+
+![](https://images.velog.io/images/mertyn88/post/b7f85dfb-0ecd-4821-87b6-2b1080d5b50f/image.png)
+
+### 후기
+문제를 이해하고 나서는 상하좌우 계산 때문에 시간이 걸리긴 했지만 난이도 자체는 낮았다고 생각된다.(내가 한번에 풀었으니까...;;;) 단, 테스트 케이스에서 저런 예외를 알려주지 않고 Hidden으로 처리되었다면 끔찍한 일이 벌어졌을지도...
+
+</div>
+</details>
+
+---
 ## 섬연결 (2021. 07. 30) Connect Island - Greedy, Kruskal
 ### 문제 및 풀이 주소
 [Programmers](https://programmers.co.kr/learn/courses/30/lessons/42861)  
