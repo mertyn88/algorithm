@@ -36,7 +36,7 @@ class Result {
     private static final String SET_BOMB = "O";
     private static final String UNSET_BOMB = ".";
 
-    private static String replaceUnsetBomb(String str, int idx) {
+    private static String getUnsetBomb(String str, int idx) {
         String[] tempArr = str.split("");
         tempArr[idx] = UNSET_BOMB;
         return String.join("",tempArr);
@@ -45,22 +45,22 @@ class Result {
     private static void setBomb(int key, int val, List<String> explodeGrid){
         // up validation & set
         if(key != 0){
-            explodeGrid.set(key - 1, replaceUnsetBomb(explodeGrid.get(key - 1), val));
+            explodeGrid.set(key - 1, getUnsetBomb(explodeGrid.get(key - 1), val));
         }
         // down validation & set
         if(key != ROW_SIZE - 1){
-            explodeGrid.set(key + 1, replaceUnsetBomb(explodeGrid.get(key + 1), val));
+            explodeGrid.set(key + 1, getUnsetBomb(explodeGrid.get(key + 1), val));
         }
         // left validation & set
         if(val != 0){
-            explodeGrid.set(key, replaceUnsetBomb(explodeGrid.get(key), val - 1));
+            explodeGrid.set(key, getUnsetBomb(explodeGrid.get(key), val - 1));
         }
         // right validation & set
         if(val != COLUMN_SIZE - 1){
-            explodeGrid.set(key, replaceUnsetBomb(explodeGrid.get(key), val + 1));
+            explodeGrid.set(key, getUnsetBomb(explodeGrid.get(key), val + 1));
         }
         // center set
-        explodeGrid.set(key, replaceUnsetBomb(explodeGrid.get(key), val));
+        explodeGrid.set(key, getUnsetBomb(explodeGrid.get(key), val));
     }
 
     private static List<Integer> getAddBomb(String str) {
