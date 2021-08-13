@@ -137,7 +137,6 @@ class Result {
         List<String> result = getBombProcess(grid);
         // Bomb explodes twice
         if(time % 4 == 1){
-            // Bomb explodes twice
             result = getBombProcess(result);
         }
         return result;
