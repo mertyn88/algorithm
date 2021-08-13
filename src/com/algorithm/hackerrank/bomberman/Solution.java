@@ -92,14 +92,14 @@ class Result {
 
     private static void setExplodeBomb(int key, List<Integer> indexList, List<String> explodeGrid) {
         if(!indexList.isEmpty()){
-            for(Integer val : indexList){
-                setBomb(key, val, explodeGrid);
+            for(int index : indexList){
+                setBomb(key, index, explodeGrid);
             }
         }
     }
 
     private static List<String> setFillBomb(List<String> grid){
-        return grid.stream().map(a -> a.replace(UNSET_BOMB, SET_BOMB)).collect(Collectors.toList());
+        return grid.stream().map(line -> line.replace(UNSET_BOMB, SET_BOMB)).collect(Collectors.toList());
     }
 
     private static List<String> setBombProcess(List<String> grid) {
