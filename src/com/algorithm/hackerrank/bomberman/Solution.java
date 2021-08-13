@@ -36,66 +36,40 @@ class Result {
     private static final String SET_BOMB = "O";
     private static final String UNSET_BOMB = ".";
 
-    private static String getUnsetBomb(String str, int idx) {
-        String[] tempArr = str.split("");
-        tempArr[idx] = UNSET_BOMB;
-        return String.join("",tempArr);
+    private static void setBomb(int row, int col, List<String> explodeGrid){
+        int[][] bombExplodeRange = {{row,col},{row,col+1},{row,col-1},{row+1,col},{row-1,col}};
+		
+		for(int i=0; i<bombExplodeRange.length; i++){
+            int r = bombExplodeRange[i][0];
+            int c = bombExplodeRange[i][1];
+            unsetBomb(explodeGrid, r, c);
+        }
     }
-
-    private static void setBomb(int key, int val, List<String> explodeGrid){
-        // up validation & set
-        if(key != 0){
-            explodeGrid.set(key - 1, getUnsetBomb(explodeGrid.get(key - 1), val));
-        }
-        // down validation & set
-        if(key != ROW_SIZE - 1){
-            explodeGrid.set(key + 1, getUnsetBomb(explodeGrid.get(key + 1), val));
-        }
-        // left validation & set
-        if(val != 0){
-            explodeGrid.set(key, getUnsetBomb(explodeGrid.get(key), val - 1));
-        }
-        // right validation & set
-        if(val != COLUMN_SIZE - 1){
-            explodeGrid.set(key, getUnsetBomb(explodeGrid.get(key), val + 1));
-        }
-        // center set
-        explodeGrid.set(key, getUnsetBomb(explodeGrid.get(key), val));
+	public static void unsetBomb(List<String> explodeGrid, int r, int c){
+        if(r>=0 && r<ROW_SIZE && c>=0 && c<COLUMN_SIZE){
+			StringBuilder unsettedRow = new StringBuilder( explodeGrid.get(r) );
+			unsettedRow.setCharAt(c, UNSET_BOMB);
+			
+			explodeGrid.set(r, unsettedRow.toString());
+		}
     }
-
-    private static List<Integer> getAddBomb(String str) {
-        List<Integer> result = new ArrayList<>();
-        int index = str.indexOf(SET_BOMB);
-        do{
-            result.add(index);
-            // Find other bomb
-            index = str.indexOf(SET_BOMB, index + 1);
-        }while (index > 0);
-        return result;
-    }
-
-    private static List<Integer> getFindBomb(String str) {
-        if(str.contains(SET_BOMB)){
-            // Add bomb list
-            return getAddBomb(str);
-        }
-        return new ArrayList<>();
-    }
-
     private static Map<Integer, List<Integer>> getCurrentBombIndex(List<String> grid) {
         Map<Integer, List<Integer>> indexMap = new HashMap<>();
         for(int idx = 0; idx < grid.size(); idx++){
-            indexMap.put(idx, getFindBomb(grid.get(idx)));
+			String bombPlantedRow = grid.get(idx)
+			List<Integer> indexes = IntStream.range(0, bombPlantedRow.length())
+				.filter(i -> bombPlantedRow.charAt(i) == SET_BOMB).boxed()
+				.collect(Collectors.toList());
+				
+            indexMap.put(idx, indexes);
         }
         return indexMap;
     }
 
     private static void setExplodeBomb(int key, List<Integer> indexList, List<String> explodeGrid) {
-        if(!indexList.isEmpty()){
-            for(int index : indexList){
-                setBomb(key, index, explodeGrid);
-            }
-        }
+        for(int index : indexList){
+			setBomb(key, index, explodeGrid);
+		}
     }
 
     private static List<String> getFillBomb(List<String> grid){
@@ -135,6 +109,7 @@ class Result {
         }
         // Bomb explodes once
         List<String> result = getBombProcess(grid);
+		
         // Bomb explodes twice
         if(time % 4 == 1){
             // Bomb explodes twice
