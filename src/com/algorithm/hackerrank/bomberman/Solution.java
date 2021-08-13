@@ -98,16 +98,16 @@ class Result {
         }
     }
 
-    private static List<String> setFillBomb(List<String> grid){
+    private static List<String> getFillBomb(List<String> grid){
         return grid.stream().map(line -> line.replace(UNSET_BOMB, SET_BOMB)).collect(Collectors.toList());
     }
 
-    private static List<String> setBombProcess(List<String> grid) {
+    private static List<String> getBombProcess(List<String> grid) {
         // Bomb index map
         Map<Integer, List<Integer>> indexMap = getCurrentBombIndex(grid);
 
         // Set explode grid
-        List<String> explodeGrid = new ArrayList<>(setFillBomb(grid));
+        List<String> explodeGrid = new ArrayList<>(getFillBomb(grid));
         for(Integer key : indexMap.keySet()){
             setExplodeBomb(key, indexMap.get(key), explodeGrid);
         }
@@ -131,14 +131,14 @@ class Result {
         }
         // Only Fill bomb
         if(time % 2 == 0){
-            return setFillBomb(grid);
+            return getFillBomb(grid);
         }
         // Bomb explodes once
-        List<String> result = setBombProcess(grid);
+        List<String> result = getBombProcess(grid);
         // Bomb explodes twice
         if(time % 4 == 1){
             // Bomb explodes twice
-            result = setBombProcess(result);
+            result = getBombProcess(result);
         }
         return result;
     }
