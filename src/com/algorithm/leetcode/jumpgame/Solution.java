@@ -1,85 +1,31 @@
 package com.algorithm.leetcode.jumpgame;
 
-import java.util.LinkedList;
-import java.util.Queue;
-
 public class Solution {
 
     /*
-        BFS..?
-
-        대상값으로 타고 가면서 마지막 값에 도달을 한번이라도 하면 return
-        실패하면 해당값을 -1하면서 0이 될때까지 수행
-
-        같은 방문일수 있으니 체크하는부분 필요할듯
-
+        문제 주요 확인 점
+         - i + nums[i]의 값이 다음 체크해야할 인덱스 값이다.
+         - 어떤 짓거리를 해도 nums의 인덱스를 순차적으로 돌면서 그 값의 최대값으로만 비교한다.
+            - 숫자가 변경되어서 인덱스를 차감하면서 진행해도 그 범위는 결국 nums의 범위 이므로
      */
 
-    private int[] nums;
 
     public boolean canJump(int[] nums) {
-        this.nums = nums;
-
-        //첫번째 값 설정
-        int num = this.nums[0];
-        // 시작값이 0일 경우 처리
-        if(num == 0) {
-            return this.nums.length == 1;
-        }
-        // 개수가 1일 경우 처리
-        if(this.nums.length == 1){
+        // nums가 한글자인 경우 0이든 0초과이든 무조건 true
+        if(nums.length == 1){
             return true;
         }
 
-        do{
-            if(bfsSearch(num, 0, 0, 0)){
-                return true;
-            }
-            num--;
-            System.out.println(num);
-        }while (num > 0);
-
-        return false;
-    }
-
-    private boolean bfsSearch(int num, int idx, int sum, int prev) {
-        System.out.println(num + " " + idx + " " + sum);
-
-
-        Queue<Integer> queue = new LinkedList<>();
-        queue.add(num);
-
-        // 방문 배열
-        boolean[] isVisit = new boolean[nums.length];
-        //isVisit[idx] = true;
-
-        //int sum = 0;
-        //int prev = 0;
-
-        while(queue.size() > 0) {
-            int value = queue.poll();
-
-            if(num < 0){
+        int maxIdx = Integer.MIN_VALUE;        // 인덱스당 최대값 설정
+        int lastIdx = nums.length - 1;         // 목표 인덱스 값 설정
+        for(int i = 0; i < nums.length; i++){
+            maxIdx = Math.max(maxIdx, i + nums[i]); // idx + nums[idx]가 점프해야하는 위치값
+            if(maxIdx <= i){    // maxIdx의 값이 대상 위치 인덱스보다 작을 경우 더이상 진행이 불가능하다.
                 return false;
-            }
-
-            //합
-            sum += value;
-            isVisit[idx] = true;
-
-            if(value == 0) {
-                return bfsSearch(num - 1, sum - prev, sum - prev, prev);
-            }else if(sum >= nums.length - 1){
+            }else if(maxIdx >= lastIdx) {   // maxIdx의 값이 루프가 돌기전에 이미 마지막 값을 넘겼다면 통과
                 return true;
-            }else{
-                if(!isVisit[sum]){
-                    queue.add(nums[sum]);
-                }
-                prev = value;
-                idx = sum;
             }
         }
-
         return false;
     }
 }
