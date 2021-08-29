@@ -2,6 +2,89 @@
 > 잡부 : https://github.com/lordchiwoo/algo_programmers  
 > 산당 : https://github.com/JhonverKing/AlgoStudy  
 > 가니 : https://github.com/kwan1989/algorithm_Programmers  
+---
+## LeetCode - Jump Game (2021. 08. 29)
+### 문제 및 풀이 주소
+[LeetCode](https://leetcode.com/problems/jump-game/)  
+[Git Solution](https://github.com/mertyn88/algorithm/blob/master/src/com/algorithm/leetcode/jumpgame/Solution.java)
+
+### 문제 설명 - 영문
+>You are given an integer array nums. You are initially positioned at the array's first index, and each element in the array represents your maximum jump length at that position.
+Return true if you can reach the last index, or false otherwise.
+
+### 문제 설명 - 번역
+>정수 배열이 제공됩니다 nums. 처음에는 배열의 첫 번째 인덱스에 위치하며 배열의 각 요소는 해당 위치에서 최대 점프 길이를 나타냅니다.
+true마지막 인덱스에 도달할 수 있으면 반환 하고 false그렇지 않으면 .
+
+
+예 1:
+>Input: nums = [2,3,1,1,4]
+Output: true
+Explanation: 인덱스 0에서 1로 1단계 이동한 다음 마지막 인덱스로 3단계 이동합니다.
+
+예 2:
+>Input: nums = [3,2,1,0,4]
+Output: false
+Explanation: 무슨 일이 있어도 항상 인덱스 3에 도달합니다. 최대 점프 길이는 0이므로 마지막 인덱스에 도달할 수 없습니다.
+
+
+제한사항
+1 <= nums.length <= 104
+0 <= nums[i] <= 105
+
+<details>
+<summary>풀이 보기</summary>
+<div markdown="12">
+
+### 문제 해결
+대상 배열인덱스에서 모든 탐색이 되어야 하므로 bfs나 dfs가 필수적이라고 생각되었다. 하지만 점점 산으로 간다. 커뮤니티 멤버인 산당님에게 열심히 설명을 들었는데 나참,, 한방에 해결되네 
+중요한 부분은 다음과 같다.
+> #### 찾아가는 방식은 i + nums[i] 이다.
+다음 인덱스 값을 구할때는 `현재 위치 인덱스값 + 해당 위치 인덱스의 Value값`
+
+> #### 굳이 해당값을 -- 하며 찾아갈 필요가 없다.
+각 인덱스를 Loop하면서 값이 없을 경우 --를 해야하는 경우 때문에 bfs나 재귀를 돌려서 찾아야 하는데 그럴필요가 없다... Loop 당 i + nums[i]의 값이 최대값일 것이고, 해당 최대값이( 매번 변경된 최대값) 그 순간의 i값( 위치값 ) 에 도달하는가 못하는가만 확인하면 된다.
+
+
+#### 이슈케이스
+bfs로 탐색을 하려니까 해당 부분에 값이 0이 발생할 경우, 한단계 -- 값을 하여 처리하고, 여러 뎁스를 처리하면서 지속적으로 0이 발생하면 또다시 -- 하여 재귀처리가 되어야 하는데, 너무 많은 뎁스에 대해서 처리가 불가능해졌다. 
+
+
+#### 전체코드
+
+폭탄의 위치값을 찾는 메소드
+
+```java
+    public boolean canJump(int[] nums) {
+        // nums가 한글자인 경우 0이든 0초과이든 무조건 true
+        if(nums.length == 1){
+            return true;
+        }
+
+        int maxIdx = Integer.MIN_VALUE;        // 인덱스당 최대값 설정
+        int lastIdx = nums.length - 1;         // 목표 인덱스 값 설정
+        for(int i = 0; i < nums.length; i++){
+            maxIdx = Math.max(maxIdx, i + nums[i]); // idx + nums[idx]가 점프해야하는 위치값
+            if(maxIdx <= i){    // maxIdx의 값이 대상 위치 인덱스보다 작을 경우 더이상 진행이 불가능하다.
+                return false;
+            }else if(maxIdx >= lastIdx) {   // maxIdx의 값이 루프가 돌기전에 이미 마지막 값을 넘겼다면 통과
+                return true;
+            }
+        }
+        return false;
+    }
+```
+
+### 테스트 결과
+
+![](https://images.velog.io/images/mertyn88/post/8820a5b4-d2de-4b31-9073-3c1a41aeedd2/image.png)
+
+### 후기
+도대체 이런 알고리즘적 생각은 어떻게 해야 잘 할수 있을까,, 이런 문제는 레벨이 낮아도 이런 방식을 모르면 엄청나게 삽질하던지(근데 나는 잘 짜지도 못해서 실패겠지), 시간초과가 뜨던지 할텐데 거참..
+후.. 하면 할수록 어려운 알고리즘
+
+</div>
+</details>
 
 ---
 ## The Bomberman Game (2021. 08. 11)
