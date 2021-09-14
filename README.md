@@ -3,6 +3,92 @@
 > 산당 : https://github.com/JhonverKing/AlgoStudy  
 > 가니 : https://github.com/kwan1989/algorithm_Programmers  
 ---
+
+## LeetCode - Best Time to Buy and Sell Stock II (2021. 09. 13)
+### 문제 및 풀이 주소
+[LeetCode](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/)  
+[Git Solution](https://github.com/mertyn88/algorithm/blob/master/src/com/algorithm/leetcode/buyandcellstock/Solution.java)
+
+### 문제 설명 - 영문
+>You are given an integer array prices where prices[i] is the price of a given stock on the ith day.
+On each day, you may decide to buy and/or sell the stock. You can only hold at most one share of the stock at any time. However, you can buy it then immediately sell it on the same day.
+Find and return the maximum profit you can achieve.
+
+### 문제 설명 - 번역
+>당신은 정수 배열을 지정해되어 온 특정 주식의 가격입니다 날.pricesprices[i]ith
+매일 주식을 사고팔기로 결정할 수 있습니다. 귀하는 한 번에 주식의 최대 1 주만 보유할 수 있습니다 . 그러나, 당신은 즉시 다음을 구입에 판매 할 수 같은 날 .
+달성할 수 있는 최대 이익을 찾아 반환 합니다 .
+
+
+예 1:
+>Input: prices = [7,1,5,3,6,4]
+Output: 7
+Explanation: 2일째에 매수(가격 = 1)하고 3일째에 매도(가격 = 5), 이익 = 5-1 = 4.
+그런 다음 4일차(가격=3)에 매수하고 5일차(가격=6)에 매도, 이익=6-3=3.
+총 이익은 4 + 3 = 7입니다.
+
+예 2:
+>Input: prices = [1,2,3,4,5]
+Output: 4
+Explanation: 1일차에 매수(가격 = 1)하고 5일차에 매도(가격 = 5), 이익 = 5-1 = 4. 
+총 이익 4입니다.
+
+예 3:
+>Input: prices = [7,6,4,3,1]
+Output: 0
+Explanation: 양의 이익을 얻을 수 있는 방법이 없으므로 최대 이익 0을 달성하기 위해 주식을 사지 않습니다.
+
+
+제한사항
+ * 1 <= prices.length <= 3 * 104
+ * 0 <= prices[i] <= 104
+ 
+ <details>
+ <summary>풀이 보기</summary>
+ <div markdown="13">
+
+### 문제 해결
+해당 문제는 어떻게 해결해야 하나 하고 난감해 하고 있었는데 같은 스터디 멤버인 `가니`님의 해석 방식을 보고 깨닫게 되었다. 
+문제에서 가장 중요한 문구는 다음과 같다  
+>귀하는 한 번에 주식의 최대 1 주만 보유할 수 있습니다
+
+처음에 이것을 가지고 계속 루프하여 찾아가야 했는데 `가니`님이 엑셀에 장표를 그리고 알려준 결과 다음과 같은 규칙이 존재하였다
+![](https://images.velog.io/images/mertyn88/post/708dc946-8c9a-4389-b7b3-4f416b977610/image.png)
+
+단순히 _**현재값과 다음값의 차이값이 양수 일 경우 매수 매도 시 이익이 발생한다**_ 라고 판단을 할 수 있었다(이것이 알고리즘...).
+
+즉 다음과 같은 조건값이 결정된다
+> Array[i] - Array[i-1] > 0 을 충족하면, 이익이 발생한다.
+
+
+#### 이슈케이스
+이번에는 문제를 해결할 때에, 풀이 방식이 먼저 공유가 되어서, 특별한 삽질을 하지 않았다.
+
+
+#### 전체코드
+
+* prices 배열의 길이만큼 IntStream을 수행 그때의 idx는 배열의 값이 아니라 배열의 인덱스
+* 배열의 인덱스 값(Value)을 연산(arr[idx] - arr[idx-1])한 값이 0보다 큰 경우에만 대상으로 filter
+* filter된 연산값으로만 새로운 배열(.map) 처리
+* 새로운 배열의 합(.sum)을 return 
+```java
+public int maxProfit(int[] prices) {
+    return IntStream.range(1, prices.length).filter(idx -> prices[idx] - prices[idx-1] > 0).map(idx -> prices[idx] - prices[idx-1]).sum();
+}
+```
+
+### 테스트 결과
+![](https://images.velog.io/images/mertyn88/post/45464230-7b78-4956-8ebb-9f16399767d4/image.png)
+
+
+### 후기
+리팩토링을 하다보니 한줄로 끝낼 수 있었다. 내가 생각한 알고리즘이 아니라 이용만 한것이기에 해결했다는 느낌이 들지 않는다. 나도 고민하다보면 이러한 규칙을 찾을수 있었을까
+
+</div>
+</details>
+
+---
+
 ## LeetCode - Jump Game (2021. 08. 29)
 ### 문제 및 풀이 주소
 [LeetCode](https://leetcode.com/problems/jump-game/)  
