@@ -4,6 +4,179 @@
 > 가니 : https://github.com/kwan1989/algorithm_Programmers  
 ---
 
+## Programmers - Sort Boxer (2021. 09. 27)
+### 문제 및 풀이 주소
+[Programmers](https://programmers.co.kr/learn/courses/30/lessons/85002)  
+[Git Solution](https://github.com/mertyn88/algorithm/blob/master/src/com/algorithm/programmers/sortboxer/Solution.java)
+
+### 문제 설명
+>복서 선수들의 몸무게 _**weights**_와, 복서 선수들의 전적을 나타내는 _**head2head**_가 매개변수로 주어집니다. 복서 선수들의 번호를 다음과 같은 순서로 정렬한 후 _**return**_ 하도록 _**solution**_ 함수를 완성해주세요.
+
+* 전체 승률이 높은 복서의 번호가 앞쪽으로 갑니다. 아직 다른 복서랑 붙어본 적이 없는 복서의 승률은 0%로 취급합니다.
+* 승률이 동일한 복서의 번호들 중에서는 자신보다 몸무게가 무거운 복서를 이긴 횟수가 많은 복서의 번호가 앞쪽으로 갑니다.
+* 자신보다 무거운 복서를 이긴 횟수까지 동일한 복서의 번호들 중에서는 자기 몸무게가 무거운 복서의 번호가 앞쪽으로 갑니다.
+* 자기 몸무게까지 동일한 복서의 번호들 중에서는 작은 번호가 앞쪽으로 갑니다.
+
+제한사항
+* weights의 길이는 2 이상 1,000 이하입니다.
+  * weights의 모든 값은 45 이상 150 이하의 정수입니다.
+  * weights[i] 는 i+1번 복서의 몸무게(kg)를 의미합니다.
+* head2head의 길이는 weights의 길이와 같습니다.
+  * head2head의 모든 문자열은 길이가 weights의 길이와 동일하며, 'N', 'W', 'L'로 이루어진 문자열입니다.
+  * head2head[i] 는 i+1번 복서의 전적을 의미하며, head2head[i][j]는 i+1번 복서와 j+1번 복서의 매치 결과를 의미합니다.
+  * 임의의 i에 대해서 head2head[i][i] 는 항상 'N'입니다. 자기 자신과 싸울 수는 없기 때문입니다.
+  * 임의의 i, j에 대해서 head2head[i][j] = 'W' 이면, head2head[j][i] = 'L'입니다.
+  * 임의의 i, j에 대해서 head2head[i][j] = 'L' 이면, head2head[j][i] = 'W'입니다.
+  * 임의의 i, j에 대해서 head2head[i][j] = 'N' 이면, head2head[j][i] = 'N'입니다.
+
+입출력 예
+
+|weights|head2head|result|
+|---|---|---|
+|[50,82,75,120]|["NLWL","WNLL","LWNW","WWLN"]|[3,4,1,2]
+|[145,92,86]|["NLW","WNL","LWN"]|[2,3,1]|
+|[60,70,60]|["NNN","NNN","NNN"]|[2,1,3]|
+
+입출력 예 설명
+입출력 예 #1
+
+다음은 선수들의 정보를 나타낸 표입니다.
+
+|선수 번호|vs 1번|vs 2번|vs 3번|vs 4번|승률|자기보다 무거운 복서를 이긴 횟수|몸무게|
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|1번|-|패배|승리|패배|33.33%|1회|50kg|
+|2번|승리|-|패배|패배|33.33%|0회|82kg|
+|3번|패배|승리|-|승리|66.66%|2회|75kg|
+|4번|승리|승리|패배|-|66.66%|0회|120kg|
+
+본문에 서술된 우선순위를 따라 [3,4,1,2] 를 _**return**_ 합니다.
+
+<details>
+ <summary>풀이 보기</summary>
+ <div markdown="14">
+
+### 문제 해결
+특정 알고리즘을 사용하기 보다는 _**멀티정렬**_을 얼마나 잘 활용하는가에 대한 문제로 생각이 되었고 잘해결이 되었다. 무언가 설명이 복잡하지만 문제 설명에 어떠한 순서로 정렬이 이루어 져야하는지 정리하면 다음과 같다
+```
+1. 정렬의 첫번째 조건은 승률이 높은 순서 (DESC)  
+2. 정렬의 두번째 조건은 자신보다 몸무게가 무거운 복서를 이긴 횟수가 높은 순서 (DESC)  
+3. 정렬의 세번째 조건은 자신의 몸무게가 무서운 순서 (DESC)  
+4. 정렬의 네번째 조건은 복서의 인덱스가 낮은 순서 (ASC)
+```
+
+#### 정보를 객체화 하여 컨트롤 하기
+주어진 정보에 대해서 복서에 대한 정보를 연산하여 저장할 때, 독립적인 변수에 저장하지 않고 객체화 하여 내부클래스를 만들어서 저장한다
+```java
+/*
+    public 변수이므로 getter값이 필요 없어야 하지만 정렬 객체 생성시에는 메소드값으로 값을 가지고 있어야 사용할수 있으므로 선언한다
+    (정확한 원인은 모르지만 정렬 파라미터의 타입이 Function이므로 메소드가 와야하지 않을까 싶다)
+*/
+class Info {
+    public float winnerRate;    // 승률 (이긴횟수)
+    public int moreWeightCnt;   // 자기몸무게보다 높은 사람 횟수
+    public int weight;          // 몸무게
+    public int index;           // 순서
+
+    public float getWinnerRate() {
+        return winnerRate;
+    }
+    public int getMoreWeightCnt() {
+        return moreWeightCnt;
+    }
+    public int getWeight() {
+        return weight;
+    }
+    public int getIndex() {
+        return index;
+    }
+}
+```
+
+#### 이긴 횟수 구하기
+해당 복서가 몇번을 이겼는지 횟수를 구하여 객체에 set한다
+```java
+/*
+    주어진 문자열에 대해 W값의(승리) position을 담고 있는 List를 반환한다
+*/
+private List<Integer> getWinnerList(String target) {
+    List<Integer> result = new ArrayList<>();
+    if(target.contains("W")){
+        int i = target.indexOf("W");
+        result.add(i);
+        while(i >= 0) {
+            i = target.indexOf("W", i+1);
+            if(i > 0){
+                result.add(i);
+            }
+        }
+    }
+    return result;
+}
+```
+
+#### 승률 구하기
+이긴 횟수를 통해서 복서의 승률을 계산한다. 단, 여기서 N값인 경우에는 승률연산에서 제외한다.
+```java
+private float getWinnerRate(List<Integer> list, String target) {
+    int totalCount = target.replace("N", "").length();
+    if(totalCount == 0) {
+        return 0.0f;
+    }
+    return list.size() / (float)totalCount * 100;
+}
+```
+
+#### 자신보다 무거운 복서를 이긴 횟수 구하기
+이전에 이긴 횟수의 Position값을 가지고 있는 List변수를 파라미터로 받아 해당 위치의 복서 몸무게값을 조회하여 횟수를 구한다
+```java
+private int getMoreWeightWinnerCount(List<Integer> list, int[] weights, int weight) {
+    int result = 0;
+    for(int idx : list) {
+        if(weight < weights[idx]) {
+            result++;
+        }
+    }
+    return result;
+}
+```
+
+#### 여러 필드 정렬하기
+정렬 사용시 사용한 인터페이스 클래스는 다음과 같다
+
+```java
+Comparator<T>
+    comparing
+    thenComparing
+```
+정렬값을 적용하고 정렬된 객체의 값 중 index값을 배열화 하여 return 한다
+```java
+Comparator<Info> compare = Comparator.comparing(Info::getWinnerRate).reversed()
+                            .thenComparing(Info::getMoreWeightCnt, Comparator.reverseOrder())
+                            .thenComparing(Info::getWeight, Comparator.reverseOrder())
+                            .thenComparing(Info::getIndex)
+                            
+return Arrays.stream(infoArr).sorted(compare).mapToInt(info -> info.index).toArray();
+```
+
+### 테스트 결과
+|정확성|테스트|시간 및 메모리|정확성|테스트|시간 및 메모리|
+|---|---|---|---|---|---|
+|테스트 1|통과|(6.95ms, 77.7MB)|테스트 7|통과|(74.75ms, 102MB)|
+|테스트 2|통과|(7.25ms, 75.8MB)|테스트 8|통과|(60.19ms, 101MB)|
+|테스트 3|통과|(9.61ms, 77.6MB)|테스트 9|통과|(37.03ms, 81.3MB)|
+|테스트 4|통과|(6.85ms, 72.9MB)|테스트 10|통과|(30.01ms, 90.4MB)|
+|테스트 5|통과|(8.40ms, 82.6MB)|테스트 11|통과|(59.20ms, 93.7MB)|
+|테스트 6|통과|(60.94ms, 109MB)|테스트 12|통과|(35.65ms, 109MB)|
+
+
+### 후기
+이번 문제는 알고리즘이라기 보다는 정렬클래스를 얼마나 잘 다루는지에 대한 문제인듯 하다. 나는 Comparator를 사용했지만 클래스 내부에서 compare를 override하거나 메소드에서 override하여 직접 명시할 수 도 있을듯 하다. 나의 경우 stream을 사용하였는데 코드는 간결하나 속도면에서는 느린것 같다. 명확하게 이용 할 수 있는 이런 문제는 언제나 환영인데..
+
+</div>
+</details>
+
+---
+
 ## LeetCode - Best Time to Buy and Sell Stock II (2021. 09. 13)
 ### 문제 및 풀이 주소
 [LeetCode](https://leetcode.com/problems/best-time-to-buy-and-sell-stock-ii/)  
