@@ -4,6 +4,82 @@
 > 가니 : https://github.com/kwan1989/algorithm_Programmers  
 ---
 
+## LeetCode - Word Break (2021. 10. 04)
+### 문제 및 풀이 주소
+[LeetCode](https://leetcode.com/problems/word-break/)  
+[Git Solution](https://github.com/mertyn88/algorithm/blob/feature/wordbreak/src/com/algorithm/leetcode/wordbreak/Solution.java)
+
+### 문제 설명 - 영문
+>Given a string s and a dictionary of strings wordDict, return true if s can be segmented into a space-separated sequence of one or more dictionary words.
+Note that the same word in the dictionary may be reused multiple times in the segmentation.
+
+### 문제 설명 - 번역
+>문자열 s과 문자열 사전이 주어지면 공백으로 구분된 하나 이상의 사전 단어 시퀀스로 분할 될 수 있는 경우 를 wordDict반환 true합니다 s.
+참고 사전에 동일한 단어가 분할에서 여러 번 재사용 될 수있다.
+
+
+예 1:
+
+입력: s = "leetcode", wordDict = ["leet","code"]
+ 출력: true
+ 설명: "leetcode"가 "leet code"로 분할될 수 있으므로 true를 반환합니다.
+
+예 2:
+
+입력: s = "applepenapple", wordDict = ["apple","pen"]
+ 출력: true
+ 설명: "applepenapple"은 "apple pen apple"로 분할될 수 있으므로 true를 반환합니다.
+사전 단어를 재사용할 수 있습니다.
+
+예 3:
+
+입력: s = "catsandog", wordDict = ["cats","dog","sand","and","cat"]
+ 출력: false
+
+
+제약:
+* 1 <= s.length <= 300
+* 1 <= wordDict.length <= 1000
+* 1 <= wordDict[i].length <= 20
+* s 그리고 wordDict[i]단지 소문자 영문자로 구성되어 있습니다.
+* 모든 문자열 wordDict은 고유 합니다.
+
+<details>
+ <summary>풀이 보기</summary>
+ <div markdown="15">
+
+### 문제 해결
+해당 문제는 DP(Dynamic programming)을 이용하여 해결하는 문제(카테고리)이다. 초기에 DP방식을 사용하지 않고 remove를 통하여 해결하려 했더니 순서에 의한 문제가 발생하였다 ( 지우는 순서에 의해서 결과가 달라진다 ) 해서 어떻게 해결해야하는지 문제를 확인하였더니 다음과 같은 방식이 있었고 풀이법이 이해가 되질않아 자세히 들여다 보게 되었다
+
+> 주어진 wordDict의 끝자리에 일치해야한다
+
+사전의 단어를 endsWith를 통하여 일치하는 대상으로만 매칭한다
+
+> 주어진 문자열을 전방일치로 나누어서 처리한다
+
+주어진 문자열을 한글자씩 substring하여 처리한다
+
+![](https://images.velog.io/images/mertyn88/post/cbf1731c-9931-48d6-836d-51eb1539baa0/image.png)
+
+스크린샷을 보면 ca값이 true일 때의 값에 의해서 rs의 값이 true값으로 도출됨을 알 수 있다
+
+
+#### 전체코드
+
+알고리즘만 알면 간단하게 풀수있는 문제( 단, 모르면 평생가도 못풀 )이기 때문에 주요 코드보다는 git solution코드를 확인하자
+
+### 테스트 결과
+![](https://images.velog.io/images/mertyn88/post/56c5cf7c-e144-421f-b07c-5f48351d05b9/image.png)
+
+
+### 후기
+DP의 정의가 워낙 방대한듯 하여 풀어보려고 해도 잘 풀리지 않는것 같다. 이번 문제도 replace로 해결하려고 하다가 포기하고 풀이법을 확인하였는데 봐도.. 내가 못풀었을것 같다..ㅠㅠ
+
+</div>
+</details>
+
+---
+
 ## Programmers - Sort Boxer (2021. 09. 27)
 ### 문제 및 풀이 주소
 [Programmers](https://programmers.co.kr/learn/courses/30/lessons/85002)  
