@@ -4,6 +4,93 @@
 > 가니 : https://github.com/kwan1989/algorithm_Programmers  
 ---
 
+## LeetCode - Longest Increasing Subsequence (2021. 10. 11)
+### 문제 및 풀이 주소
+[LeetCode](https://leetcode.com/problems/longest-increasing-subsequence/)  
+[Git Solution](https://github.com/mertyn88/algorithm/blob/feature/longestincreasing/src/com/algorithm/leetcode/longestincreasing/Solution.java)
+
+### 문제 설명 - 영문
+>Given an integer array nums, return the length of the longest strictly increasing subsequence.
+A subsequence is a sequence that can be derived from an array by deleting some or no elements without changing the order of the remaining elements. For example, [3,6,2,7] is a subsequence of the array [0,3,1,6,2,2,7].
+
+### 문제 설명 - 번역
+>정수 배열이 주어지면 nums가장 긴 엄격하게 증가하는 부분 시퀀스의 길이를 반환합니다.
+시퀀스는 일부 또는 나머지 요소들의 순서를 변경하지 아니 요소 삭제 배열로부터 유도 될 수있는 서열이다. 예를 들어, [3,6,2,7]는 배열의 하위 시퀀스입니다 [0,3,1,6,2,2,7].
+
+
+예 1:
+
+>입력: nums = [10,9,2,5,3,7,101,18]
+ 출력: 4
+ 설명: 가장 긴 증가 부분 수열은 [2,3,7,101]이므로 길이는 4입니다.
+
+예 2:
+
+>입력: 숫자 = [0,1,0,3,2,3]
+ 출력: 4
+
+예 3:
+>입력: 숫자 = [7,7,7,7,7,7,7]
+ 출력: 1
+ 
+
+제한사항
+* 1 <= nums.length <= 2500
+* -104 <= nums[i] <= 104
+
+<details>
+ <summary>풀이 보기</summary>
+ <div markdown="16">
+
+### 문제 해결
+DP알고리즘 문제는 그냥 코딩문제가 아니라 수학문제인것 같다. 몇가지 방법을 시도하다가 설명란에 있는 풀이를 보고 해결하였다. 해당 문제는 DP 배열로 조건이 만족할때 ++해주면서 DP배열을 만드는것이다.
+만든 배열값 중 max값을 반환한다
+
+![](https://images.velog.io/images/mertyn88/post/df2bfa92-2518-4730-b46c-51cb4b9262b9/image.png)
+
+>노란색 셀이 i Loop의 대상값이며 노란색 셀의 괄호값을 결정은 다음과 같은 조건이 필요하다
+```java
+if(nums[j] < nums[i]) {
+    dpArr[i] = Math.max(dpArr[i], dpArr[j]  + 1);
+}
+```
+초록색의 셀은 if의 조건을 만족하는 셀 이며 노란색 셀의 값을 결정하는 후보군이 된다.  
+보라색 셀은 초록색의 셀 중에서 가장 높은 값이며 `보라색 셀 값 + 1` 이 노란색 셀의 값으로 결정된다. 
+
+예를들어 2번째 예시의 마지막셀 `18`은 `101`보다 작은 값이므로 조건을 충족하지 못해 `101` 셀이 초록섹 셀로 변경되지 않았으며 `101`이 3의 값으로 가장 높은 값을 가지고 있었음에도 `7`의 값 2+1이 되어 할당 값은 3이다 
+
+
+#### 전체코드 
+```java
+public int lengthOfLIS(int[] nums) {
+	// DP배열 할당
+    int[] dpArr = new int[nums.length];
+    for(int i = 1; i < nums.length; i++) {
+    	// j Loop의 범위는 i 값으로 i개수만큼 증감 Loop의 형태
+        for(int j = 0; j < i; j++) {
+            if(nums[j] < nums[i]) {
+                dpArr[i] = Math.max(dpArr[i], dpArr[j]  + 1);
+            }
+        }
+    }
+    // 최종 값은 자기자신의 값을 포함해야 하므로 +1 한다
+    return Arrays.stream(dpArr).max().getAsInt() + 1;
+}
+```
+
+### 테스트 결과
+![](https://images.velog.io/images/mertyn88/post/f2babb05-ce5a-4992-82a2-3b79776b8c68/image.png)
+
+
+### 후기
+풀이를 보지 않고 풀이해보려고 했던 방식은 대상 값과 대상 값의 다음값만을 가지고 비교하여 처리하려 했으나 뒤의 값을 체크하지 않고서는 문제를 해결할 수 없었다. 모든 노드를 탐색해야하는 DFS방식도 생각을 해보았으나 해당 문제의 주제는 DP였으므로 사용하지 않고 풀이를 보면서 진행하게 되었다.
+특히나 DP관련된 문제는 코딩보다는 수학에 가까운듯 하다
+
+</div>
+</details>
+
+---
+
 ## LeetCode - Word Break (2021. 10. 04)
 ### 문제 및 풀이 주소
 [LeetCode](https://leetcode.com/problems/word-break/)  
