@@ -7,4 +7,9 @@ public class Util {
             System.out.println(element);
         }
     }
+    public static void print(String[] elements) {
+        for(String element : elements){
+            System.out.println(element);
+        }
+    }
 }
